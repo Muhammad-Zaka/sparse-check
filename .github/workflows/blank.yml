@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Sparse checkout, excluding scripts folder
         run: |
           git sparse-checkout init --cone
           git sparse-checkout set :/
-          git sparse-checkout set -p 'scripts/*'
+          git sparse-checkout add -p '!scripts'
