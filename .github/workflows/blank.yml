@@ -13,6 +13,7 @@ jobs:
         with:
           sparse-checkout: |
             !scripts/*
+            !airej/*
             /*
           sparse-checkout-cone-mode: false # required for ! entry to work
       - name: list root folders
