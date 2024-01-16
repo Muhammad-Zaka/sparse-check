@@ -17,4 +17,5 @@ jobs:
         run: |
           echo '/*' > .git/info/sparse-checkout
           echo '!node_modules' >> .git/info/sparse-checkout
+          git read-tree -mu HEAD
           ls -la
