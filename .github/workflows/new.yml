@@ -1,0 +1,44 @@
+name: Extract Branches and Commit
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  extract-branches-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Extract branches
+        run: |
+          SOURCE_BRANCH="${{ github.event.before }}"
+          DESTINATION_BRANCH="${{ github.event.after }}"
+          
+          # Create a temporary branch for changes
+          git checkout -b temp_branch "${SOURCE_BRANCH}"
+          
+          # Remove 'scripts' folder from the source branch
+          rm -rf scripts
+          
+          # Commit changes
+          git add .
+          git commit -m "Remove 'scripts' folder from ${SOURCE_BRANCH}"
+
+          # Push changes to the temporary branch
+          git push origin temp_branch
+
+          # Create a pull request to merge changes into the destination branch
+          gh pr create --base "${DESTINATION_BRANCH}" --head temp_branch --title "Remove 'scripts' folder from ${SOURCE_BRANCH}"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
