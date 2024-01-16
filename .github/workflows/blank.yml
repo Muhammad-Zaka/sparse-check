@@ -15,8 +15,8 @@ jobs:
 
       - name: Sparse checkout, excluding scripts folder
         run: |
-        git config core.sparseCheckout true
-        echo '/*' > .git/info/sparse-checkout
-        echo '!scripts' >> .git/info/sparse-checkout
-        ls -la
+          git config core.sparseCheckout true
+          echo '/*' > .git/info/sparse-checkout
+          echo '!scripts' >> .git/info/sparse-checkout
+          ls -la
       
