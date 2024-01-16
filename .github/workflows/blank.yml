@@ -13,10 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Sparse checkout, excluding scripts folder
+      - name: Set up sparse-checkout
         run: |
-          git config core.sparseCheckout true
           echo '/*' > .git/info/sparse-checkout
-          echo '!scripts' >> .git/info/sparse-checkout
+          echo '!node_modules' >> .git/info/sparse-checkout
           ls -la
-      
