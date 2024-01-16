@@ -15,7 +15,7 @@ jobs:
         with:
           sparse-checkout: |
             /*
-            !/scripts/
+            !/scripts
 
       - name: Set up sparse-checkout
         run: |
