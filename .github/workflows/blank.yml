@@ -1,22 +1,21 @@
-name: Sparse Checkout Example
-
+name: git sparse-checkout (exclude)
 on:
   push:
-    branches:
-      - main
-
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 jobs:
   sparse-checkout:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           sparse-checkout: |
+            !scripts/*
             /*
-            !scripts/
-
-      - name: Set up sparse-checkout
-        run: |
-          ls -la
+          sparse-checkout-cone-mode: false # required for ! entry to work
+      - name: list root folders
+        run: ls -la
+      - name: list .github folders
+        run: ls -laR ./.github
