@@ -17,6 +17,6 @@ jobs:
         run: |
           git sparse-checkout init --cone
           git sparse-checkout set :/
-          git sparse-checkout add -p 'scripts'
+          git sparse-checkout set -p 'scripts/*'
           ls -la
       
